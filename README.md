@@ -2,7 +2,7 @@
 In this project, I will implement a few container types of the C++ standard template library.
 we'll talk about some essential concepts before diving into the implementation of containers :
 
-#### Exception safety
+### Exception safety
 Exception safety is a programming concept that refers to the ability of a program to handle and recover from exceptions (unexpected errors or conditions) without causing memory leaks, data corruption, or other side effects. Exception safety is important because when an exception occurs, it can disrupt the normal flow of control in a program, and if the program is not prepared to handle the exception, it can lead to unpredictable and undesirable consequences.
 
 There are three main levels of exception safety:
