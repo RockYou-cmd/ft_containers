@@ -34,3 +34,9 @@ Exception safety refers to the ability of a program to maintain a consistent sta
 
 It's important to note that no single technique will completely prevent all exceptions, and a combination of these techniques may be necessary to achieve exception safety in a program.
 
+### Functors  (Function Objects)
+
+In C++, a functor (short for "function object") is a type that can be used as if it were a function. A functor is an object of a class that overloads the function call operator (operator()), allowing the class's objects to be used as if they were functions. This allows for the creation of function-like objects that can store state and other information, and can be passed as arguments to algorithms and other functions that expect function pointers or function-like objects. Functors are often used as arguments to the STL algorithms, such as "sort" and "for_each".
+
+
+
