@@ -21,4 +21,4 @@ There are three main levels of exception safety:
 3 . No-throw exception safety: This level ensures that the program will not throw any exceptions, even in the event of an error. This is often achieved by using error codes or status flags instead of exceptions.
 
 Achieving exception safety can require a lot of effort and attention to detail, but it is an important aspect of designing robust and reliable software.
-### stack unwinding
+
