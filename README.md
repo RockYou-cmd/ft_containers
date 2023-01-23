@@ -22,3 +22,7 @@ There are three main levels of exception safety:
 
 Achieving exception safety can require a lot of effort and attention to detail, but it is an important aspect of designing robust and reliable software.
 
+#### relation between exception safety and stack unwinding 
+
+Exception safety refers to the ability of a program to maintain a consistent state in the event of an exception being thrown. Stack unwinding is the process of unwinding the call stack when an exception is thrown in order to find the appropriate exception handler to handle the exception. The two concepts are related in that stack unwinding is a necessary step in implementing exception safety, as it allows the program to transfer control to the appropriate exception handler when an exception is thrown.
+
