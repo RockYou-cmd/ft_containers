@@ -26,3 +26,11 @@ Achieving exception safety can require a lot of effort and attention to detail, 
 
 Exception safety refers to the ability of a program to maintain a consistent state in the event of an exception being thrown. Stack unwinding is the process of unwinding the call stack when an exception is thrown in order to find the appropriate exception handler to handle the exception. The two concepts are related in that stack unwinding is a necessary step in implementing exception safety, as it allows the program to transfer control to the appropriate exception handler when an exception is thrown.
 
+### There are several techniques for implementing exception safety
+
+##### - The RAII idiom: Resource Acquisition Is Initialization idiom is a technique that ensures that resources are properly acquired and released in a program. This is achieved by using constructors and destructors to acquire and release resources.
+
+##### - Avoiding exception in critical section: critical section of a program should be designed in a way that they do not throw any exception. This can be achieved by validating the inputs before entering into critical section or by using exception handling mechanism to handle the exception.
+
+It's important to note that no single technique will completely prevent all exceptions, and a combination of these techniques may be necessary to achieve exception safety in a program.
+
