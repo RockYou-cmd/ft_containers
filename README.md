@@ -67,3 +67,12 @@ ADL stands for Argument-Dependent Lookup. It is a C++ feature that allows the co
 #### template argument deduction
 Template argument deduction is a feature of C++ that allows the compiler to deduce the template arguments for a function or class template based on the types of the function arguments or the class constructor arguments.</br>
 
+#### template argument substitution
+it is the process that the C++ compiler uses to determine the actual types or values to use for the template arguments when instantiating a template. When a template is called, the compiler compares the template arguments with the template parameters to ensure they match the expected types or values, and then generates a new version of the template with the actual arguments substituted for the parameters.</br>
+
+In other words, TAS is the process of replacing the template parameters by their corresponding arguments, while TAD is the process of determining the arguments for a template by looking at the types of the function or constructor arguments. TAD is used to deduce template arguments from the arguments of a function call, TAS is used to substitute the deduced or explicitly specified template arguments into the template code.</br>
+
+So TAS is a process that happens during the instantiation of a template and TAD is a process that happens during the call of a template function or class.
+
+
+
