@@ -63,3 +63,7 @@ Unqualified name lookup is the default lookup mechanism in C++, but it can lead 
 
 #### ADL (Argument Dependent Lookup)
 ADL stands for Argument-Dependent Lookup. It is a C++ feature that allows the compiler to look for functions or operators in the namespaces of the types of the arguments, in addition to the namespaces in the current scope. This can be useful for resolving function or operator overloads, especially when working with templates.</br>
+
+#### template argument deduction
+Template argument deduction is a feature of C++ that allows the compiler to deduce the template arguments for a function or class template based on the types of the function arguments or the class constructor arguments.</br>
+
