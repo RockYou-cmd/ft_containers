@@ -93,4 +93,8 @@ Here's a basic example of SFINAE in C++:
          foo(3.14); // Compilation error: T must be an integral type
          return 0;
      }
+In this example, we have a function template foo that takes a single argument of any type T. Inside the function, we use the static_assert function to check if T is an integral type (i.e. an integer type). If the check fails, the static_assert will generate a compile-time error and the program will not be able to be compiled.
 
+In the main function, we call foo with an argument of type int, which is an integral type, so the function is instantiated successfully and the program compiles and runs without errors. But if we call the function with a non-integral type like double, the static_assert check will fail and the program will not be able to be compiled.
+
+This is a basic example of how SFINAE can be used to check the types of template arguments at compile-time and prevent compilation errors.
