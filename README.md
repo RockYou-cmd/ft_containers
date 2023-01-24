@@ -77,4 +77,20 @@ So TAS is a process that happens during the instantiation of a template and TAD 
 #### overload resolution
 Overload resolution is a process that the C++ compiler uses to determine which version of a function or operator to call when there are multiple versions with the same name but different parameters. The compiler compares the types of the arguments with the parameter types of each version and selects the one that is the best match. If there are multiple versions that are equally good matches, the compiler will generate an error. This feature allows you to create multiple versions of a function or operator with different behavior based on the types of the arguments.
 
-now the SFINAE stands for "Substitution Failure Is Not An Error." It is a technique used in C++ template programming to avoid compilation errors when the compiler tries to substitute a template parameter and the substitution results in an invalid or ill-formed expression. Instead of generating an error, SFINAE causes the compiler to simply ignore the invalid substitution and continue with the next one. This allows for more flexibility in template programming and can be used to implement concepts like concept checking and tag dispatching.
+###### now the SFINAE is a technique used in C++ template programming to avoid compilation errors when the compiler tries to substitute a template parameter and the substitution results in an invalid or ill-formed expression. Instead of generating an error, SFINAE causes the compiler to simply ignore the invalid substitution and continue with the next one. This allows for more flexibility in template programming and can be used to implement concepts like concept checking and tag dispatching.
+
+Here's a basic example of SFINAE in C++:
+
+
+     template <typename T>
+     void foo(T x) {
+         static_assert(std::is_integral<T>::value, "T must be an integral type");
+         // ...
+     }
+
+     int main() {
+         foo(5); // OK
+         foo(3.14); // Compilation error: T must be an integral type
+         return 0;
+     }
+
