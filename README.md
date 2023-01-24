@@ -98,3 +98,25 @@ In this example, we have a function template foo that takes a single argument of
 In the main function, we call foo with an argument of type int, which is an integral type, so the function is instantiated successfully and the program compiles and runs without errors. But if we call the function with a non-integral type like double, the static_assert check will fail and the program will not be able to be compiled.
 
 This is a basic example of how SFINAE can be used to check the types of template arguments at compile-time and prevent compilation errors.
+
+## 3 - Type Traits / Tag dispatching
+
+Type traits are a feature of the C++ programming language that provide a way to determine properties of a type at compile-time. They are typically implemented as template classes or structs that can be specialized for specific types, and provide a way to query information about a type, such as whether it is a pointer, a reference, or a fundamental type, or whether it is const-qualified or has a specific member function. Examples of type traits include `std::is_pointer`, `std::is_const`, and `std::is_class`. Type traits are typically used in template metaprogramming to write generic code that can work with a wide range of types.
+
+Here is an example of how you might use std::is_pointer to write a generic function that prints the value of an object only if it's a pointer:
+```template <typename T>
+void print_if_pointer(T &obj)
+{
+    if constexpr (std::is_pointer<T>::value)
+    {
+        std::cout << "The value of the pointer is: " << *obj << std::endl;
+    }
+    else
+    {
+        std::cout << "This is not a pointer." << std::endl;
+    }
+}
+```
+In this example, the if `constexpr statement` is used to conditionally enable or disable the code inside the if block based on whether `T` is a pointer or not. The `std::is_pointer<T>::value` expression returns true if `T` is a pointer, and false otherwise.
+
+This is a simple example, but type traits can be used to do much more complex things like creating complex type manipulations, template metaprogramming, and generic programming.
