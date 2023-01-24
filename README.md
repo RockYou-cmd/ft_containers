@@ -74,5 +74,6 @@ In other words, TAS is the process of replacing the template parameters by their
 
 So TAS is a process that happens during the instantiation of a template and TAD is a process that happens during the call of a template function or class.
 
-
+#### overload resolution
+Overload resolution is a process that the C++ compiler uses to determine which version of a function or operator to call when there are multiple versions with the same name but different parameters. The compiler compares the types of the arguments with the parameter types of each version and selects the one that is the best match. If there are multiple versions that are equally good matches, the compiler will generate an error. This feature allows you to create multiple versions of a function or operator with different behavior based on the types of the arguments.
 
