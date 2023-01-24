@@ -2,7 +2,7 @@
 In this project, I will implement a few container types of the C++ standard template library.</br>
 we'll talk about some essential concepts before diving into the implementation of containers :
 
-### Exception safety
+## 1 - Exception safety
 
 
 I should first introduce to you an important concept which is stack unwinding </br>
@@ -45,3 +45,21 @@ In C++, a functor (short for "function object") is a type that can be used as if
 * binary: a functor that takes two arguments
 * predicate: Used as a functor that returns a boolean value, Unary predicate, Binary predicate, etc.
 * operator: a functor that returns an operation value
+
+## 2 - SFINAE (Substitution Failure Is Not An Error)
+
+ let's first see how the compiler chooses the right function overload to call before we describe SFINAE.</br>
+   
+ in c++, the compiler goes through a process in order for it to find the right function overload.</br>
+ these steps are :
+#### name lookup
+there are two different ways to resolve the meaning of an identifier (such as a variable or function name) in a program, Unqualified name lookup and qualified name lookup. </br>
+
+Unqualified name lookup, also known as unqualified lookup or ordinary lookup, is the process of resolving the meaning of an identifier without considering any namespace or class scope qualifiers. In C++, unqualified name lookup starts by searching the current scope and any enclosing scopes, from the innermost to the outermost, to find the declaration associated with the identifier. If the identifier is not found in any of the scopes, the compiler will also search through the global namespace.
+
+On the other hand, qualified name lookup, also known as qualified lookup or explicit lookup, is the process of resolving the meaning of an identifier by considering the namespace or class scope qualifiers. In C++, when an identifier is used in a program with a namespace or class scope qualifier, the compiler will only search for the declaration of the identifier within that specific namespace or class.
+
+Unqualified name lookup is the default lookup mechanism in C++, but it can lead to naming conflicts, where multiple declarations of the same identifier exist in different scopes. Qualified name lookup can be used to avoid such conflicts or to access specific identifiers that have the same name but are in different namespaces or classes.
+
+#### ADL (Argument Dependent Lookup)
+ADL stands for Argument-Dependent Lookup. It is a C++ feature that allows the compiler to look for functions or operators in the namespaces of the types of the arguments, in addition to the namespaces in the current scope. This can be useful for resolving function or operator overloads, especially when working with templates.</br>
