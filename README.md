@@ -124,3 +124,7 @@ In this example, the if `constexpr statement` is used to conditionally enable or
 This is a simple example, but type traits can be used to do much more complex things like creating complex type manipulations, template metaprogramming, and generic programming.
  
  ### - Tag Dispatching :
+ Tag Dispatching is a technique in C++ for selecting the correct function overload or implementation of a function template based on the type of its arguments. It is typically used as a more efficient alternative to virtual function calls and type-based dispatching, and can be used to implement various design patterns such as the Visitor and Double Dispatch patterns. The technique involves creating small, empty structs called "tags" that are used to distinguish between different types, and then using template specialization to select the correct function implementation based on the presence or absence of a particular tag.</br>
+`you may wonder what is the deference between tag dispatching and overload resolution ?`</br>
+In short, name overload resolution uses the types of the arguments to select the correct function, while tag dispatching uses the types of the arguments to select the correct implementation of a function template.
+
