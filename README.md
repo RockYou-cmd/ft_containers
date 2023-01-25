@@ -101,6 +101,7 @@ This is a basic example of how SFINAE can be used to check the types of template
 
 ## 3 - Type Traits / Tag dispatching
 
+### -Type Traits
 Type traits are a feature of the C++ programming language that provide a way to determine properties of a type at compile-time. They are typically implemented as template classes or structs that can be specialized for specific types, and provide a way to query information about a type, such as whether it is a pointer, a reference, or a fundamental type, or whether it is const-qualified or has a specific member function. Examples of type traits include `std::is_pointer`, `std::is_const`, and `std::is_class`. Type traits are typically used in template metaprogramming to write generic code that can work with a wide range of types.</br>
 For example, given a generic type T — it could be int, bool, std::vector, or whatever you want — with type traits you can ask the compiler some questions: is it an integer? Is it a function? Is it a pointer? Or maybe a class? Does it have a destructor? Can you copy it? Will it throw exceptions? ... and so on. This is extremely useful in conditional compilation, where you instruct the compiler to pick the right path according to the type in input. We will see an example shortly.
 
@@ -121,3 +122,5 @@ void print_if_pointer(T &obj)
 In this example, the if `constexpr statement` is used to conditionally enable or disable the code inside the if block based on whether `T` is a pointer or not. The `std::is_pointer<T>::value` expression returns true if `T` is a pointer, and false otherwise.
 
 This is a simple example, but type traits can be used to do much more complex things like creating complex type manipulations, template metaprogramming, and generic programming.
+ 
+ ### - Tag Dispatching :
