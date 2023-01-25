@@ -124,7 +124,53 @@ In this example, the if `constexpr statement` is used to conditionally enable or
 This is a simple example, but type traits can be used to do much more complex things like creating complex type manipulations, template metaprogramming, and generic programming.
  
  ### - Tag Dispatching :
- Tag Dispatching is a technique in C++ for selecting the correct function overload or implementation of a function template based on the type of its arguments. It is typically used as a more efficient alternative to virtual function calls and type-based dispatching, and can be used to implement various design patterns such as the Visitor and Double Dispatch patterns. The technique involves creating small, empty structs called "tags" that are used to distinguish between different types, and then using template specialization to select the correct function implementation based on the presence or absence of a particular tag.</br>
+ Tag Dispatching is a technique in C++ for selecting the correct function overload or implementation of a function template based on the type of its arguments. It is typically used as a more efficient alternative to virtual function calls and type-based dispatching, and can be used to implement various design patterns such as the Visitor and Double Dispatch patterns. The technique involves creating small, empty structs called "tags" that are used to distinguish between different types, and then using template specialization to select the correct function implementation based on the presence or absence of a particular tag.
 `you may wonder what is the deference between tag dispatching and overload resolution ?`</br>
-In short, name overload resolution uses the types of the arguments to select the correct function, while tag dispatching uses the types of the arguments to select the correct implementation of a function template.
+In short, name overload resolution uses the types of the arguments to select the correct function, while tag dispatching uses the types of the arguments to select the correct implementation of a function template.</br>
+###### Name Overload Resolution:</br>
+Consider the example of a simple function named "print" that takes an integer or a floating-point number as an argument and prints it to the screen.
+```void print(int x) {
+    std::cout << x << std::endl;
+}
+void print(float x) {
+    std::cout << x << std::endl;
+}
+```
+When we call the function with different types of arguments, the compiler will automatically select the correct version of the function to call based on the type of the argument. For example, if we call "print(5)" the compiler will call the first function void print(int x) and if we call "print(5.0f)" the compiler will call the second function void print(float x)
+###### Tag Dispatching:
+```struct float_tag {};
+struct int_tag {};
+
+template <typename T>
+void print(T x, float_tag) {
+    std::cout << x << std::endl;
+}
+template <typename T>
+void print(T x, int_tag) {
+    std::cout << x << std::endl;
+}
+template <typename T>
+void print(T x) {
+    print(x, typename std::conditional<std::is_floating_point<T>::value, float_tag, int_tag>::type{});
+}
+```
+In this example, the print function is a function template that takes a single argument of any type. The function template has two specializations. One for float_tag and the other for int_tag.
+When we call the function with different types of arguments, the compiler will automatically select the correct version of the function to call based on the type of the argument. For example, if we call "print(5)" the compiler will call the void print(T x, int_tag) and if we call "print(5.0f)" the compiler will call the void print(T x, float_tag)
+
+`std::conditional` is a template class in the C++ Standard Template Library (STL) that allows for conditional compilation of types. It is used to select one type or another based on a Boolean value. The `std::conditional` template takes two template arguments, `T` and `F`, and a Boolean value `B`. If `B` is true, `std::conditional` will evaluate to `T`, otherwise it will evaluate to `F`.
+
+It is typically used in template metaprogramming, a technique in which templates are used to generate code at compile-time rather than runtime.
+
+Here is an example of how you would use std::conditional to understand the code above:
+```template<bool B, typename T, typename F>
+using conditional_t = std::conditional<B, T, F>::type;
+
+int main() {
+  conditional_t<true, int, char> a = 5;
+  conditional_t<false, int, char> b = 'c';
+  std::cout << a << " " << b << std::endl;
+}
+```
+As you can see, the main difference is that in Name overload resolution we use different functions with the same name, while in Tag Dispatching we use different specializations of the same function template.
+
 
