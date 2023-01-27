@@ -173,4 +173,47 @@ int main() {
 ```
 As you can see, the main difference is that in Name overload resolution we use different functions with the same name, while in Tag Dispatching we use different specializations of the same function template.
 
+## 3 -  Iterators
 
+In C++, an iterator is a class or struct that defines the operator* and `operator++` (or `operator--`) methods. These methods allow an instance of the iterator class to be used to traverse a container, such as a vector or a linked list. The `operator* `method returns a reference to the element being pointed to by the iterator, and the `operator++` method advances the iterator to the next element in the container.
+
+For example, a `vector<int> `has an iterator which is typically called `vector<int>::iterator`. The iterator can be used to traverse the elements of the vector by incrementing the iterator using the ++ operator, and dereferencing the iterator using the * operator.
+```#include <vector>
+#include <iostream>
+
+int main() {
+    std::vector<int> myVec = {1, 2, 3, 4, 5};
+    for (std::vector<int>::iterator it = myVec.begin(); it != myVec.end(); ++it) {
+        std::cout << *it << std::endl;
+    }
+    return 0;
+}
+```
+there are 5 categories of iterators, each with its own properties and capabilities. These categories are:
+    Input Iterators: These iterators can be used to read elements from a container, but not to modify them. They are typically used to traverse a container in a single pass, from the beginning to the end.
+
+1 - Output Iterators: These iterators can be used to write elements to a container, but not to read them. They are typically used to construct a container by successively adding elements to it.
+
+2 - Forward Iterators: These iterators are a combination of input and output iterators, and can be used to read and modify elements in a container. They are typically used to traverse a container in a single pass, and can be used with the full range of STL algorithms.
+
+3 - Bidirectional Iterators: These iterators are a type of forward iterator that also support decrement operations (--). They can be used to traverse a container in both directions, and are typically used with data structures like lists and maps.
+
+4 - Random-access Iterators: These iterators are the most powerful type of iterator, and provide constant-time access to any element in a container. They support all the operations of bidirectional iterators, as well as random access to elements using the [] operator. They are typically used with arrays and vectors.
+
+It's important to note that not all containers have iterators of all categories, and it's important to choose the right iterator for the task at hand to work efficiently with the container.
+
+###### Here is the Iterator categories of standard C++ container classes.
+
+`std::vector` and `std::deque` have random-access iterators. These containers have constant-time access to any element and support all operations of bidirectional iterators.
+
+`std::list` and `std::forward_list` have bidirectional iterators. These containers support constant-time insert and erase operations anywhere, but have linear-time access to elements.
+
+`std::set`, `std::map`, `std::multiset`, and s`td::multimap` have bidirectional iterators. These containers are typically implemented as balanced trees and have logarithmic-time access to elements, as well as constant-time insert and erase operations.
+
+`std::array` have random-access iterators.
+
+`std::string` has `random-access iterators`.
+
+`std::stack`, `std::queue`, and `std::priority_queue` have forward iterators. These container adaptors do not provide direct access to the underlying container, but rather impose a specific order on the elements.
+
+It's important to note that not all containers provide the same level of functionality for their iterators, and it's important to choose the right iterator for the task at hand to work efficiently with the container.
