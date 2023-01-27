@@ -217,3 +217,22 @@ It's important to note that not all containers have iterators of all categories,
 `std::stack`, `std::queue`, and `std::priority_queue` have forward iterators. These container adaptors do not provide direct access to the underlying container, but rather impose a specific order on the elements.
 
 It's important to note that not all containers provide the same level of functionality for their iterators, and it's important to choose the right iterator for the task at hand to work efficiently with the container.
+
+### - Iterator Traits
+
+The C++ Standard Template Library (STL) defines several iterator traits that can be used to determine the properties of iterators. Here is a list of the most commonly used iterator traits:
+
+`std::iterator_traits<Iterator>::iterator_category`: This trait is used to determine the category of the iterator, such as whether it is a random-access iterator, bidirectional iterator, or forward iterator.
+`std::iterator_traits<Iterator>::value_type`: This trait is used to determine the type of the elements that the iterator can access.
+`std::iterator_traits<Iterator>::difference_type`: This trait is used to determine the type used to represent the distance between two iterators.
+`std::iterator_traits<Iterator>::pointer`: This trait is used to determine the type of the pointer to the elements that the iterator can access.
+`std::iterator_traits<Iterator>::reference`: This trait is used to determine the type of the reference to the elements that the iterator can access.
+
+There are also other less commonly used iterator traits such as:
+
+`std::iterator_traits<Iterator>::iterator_concept`: This trait is used to determine the concepts of the iterator, such as whether it is a InputIterator, OutputIterator, ForwardIterator and so on.
+`std::iterator_traits<Iterator>::propagation_category`: This trait is used to determine the propagation category of the iterator, such as whether it is a propagate_on_container_move_assignment_t.
+
+These iterator traits are defined in the <iterator> header, which is automatically included by most of the STL containers and algorithms.
+
+It's worth noting that these traits are defined for all the standard iterators, but if you're trying to use them with user-defined iterators, you may need to specialize the std::iterator_traits template for your iterator type.
