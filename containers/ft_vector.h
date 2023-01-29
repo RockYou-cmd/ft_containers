@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/01/29 07:15:31 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:38:52 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ namespace ft
 		Vector(): vcap(0) , vsize(0) {};
 
 		// Fill constructor
-		Vector(size_type nb, const value_type& val = value_type())
+		Vector(size_type nb, const value_type& val = value_type()) : vsize(nb) , vcap(nb) 
 		{	
 			std::cout << "constructed \n";
-			data = _allocator.allocate(nb);
+			bdata = _allocator.allocate(nb);
 			for (int i = 0; i < nb; i ++)
-				_allocator.construct(data + i, val);
+				_allocator.construct(bdata + i, val);
+			edata = bdata + nb - 1;
 		}
 		// Vector& operator=(const Vector& other)
 		// {
@@ -58,18 +59,27 @@ namespace ft
 		// push_back
 		void push_back (const value_type& val)
 		{
-			if (vsize == vcap)
+			if (vcap == vsize)
 			{
-				if (vcap == vsize)
-				{
-					size_type ncap;
-					if (!vcap)
-						ncap = 1;
-					else
-						ncap = vcap * 2;
-					pointer tmp = _allocator.allocate(vsize);
-					
-				}
+				size_type ncap;
+				if (!vcap)
+					ncap = 1;
+				else
+					ncap = vcap * 2;
+				pointer tmp = _allocator.allocate(vsize);
+				for (int i = 0; i < vsize; i ++)	
+					tmp[i] = bdata[i];
+				for (int i = 0; i < vsize; i ++)
+					std::cout << bdata[i] << std::endl;
+				for (int i = 0; i < vsize; i ++)
+					_allocator.destroy(bdata + i);
+				_allocator.deallocate(bdata, vsize);	
+				std::cout << "afte deallocate \n";
+				for (int i = 0; i < vsize; i ++)
+					std::cout << bdata[i] << std::endl;
+				// for (int i = 0; i < vsize; i ++)	
+					// std::cout << tmp[i] << std::endl;
+							
 			}
 		}
 		
@@ -78,8 +88,8 @@ namespace ft
 			size_type		vsize;
 			size_type 		vcap;
 			allocator_type _allocator;
-			std::allocator<T>  data;
-			pointer finish;
+			pointer  bdata;
+			pointer edata;
 	};
 }
 
