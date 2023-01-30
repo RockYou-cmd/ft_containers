@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/01/29 19:38:52 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/01/30 23:44:38 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ namespace ft
 		// Fill constructor
 		Vector(size_type nb, const value_type& val = value_type()) : vsize(nb) , vcap(nb) 
 		{	
-			std::cout << "constructed \n";
-			bdata = _allocator.allocate(nb);
+			std::cout << "constructed " << nb << "\n";
+			bdata = _allocator.allocate(10);
 			for (int i = 0; i < nb; i ++)
 				_allocator.construct(bdata + i, val);
-			edata = bdata + nb - 1;
+			edata = bdata + (nb - 1);
+			
 		}
 		// Vector& operator=(const Vector& other)
 		// {
@@ -56,7 +57,7 @@ namespace ft
 		// 	}
 		// }
 		
-		// push_back
+		// push_back	
 		void push_back (const value_type& val)
 		{
 			if (vcap == vsize)
@@ -66,30 +67,71 @@ namespace ft
 					ncap = 1;
 				else
 					ncap = vcap * 2;
-				pointer tmp = _allocator.allocate(vsize);
-				for (int i = 0; i < vsize; i ++)	
+				pointer tmp = _allocator.allocate(ncap);
+				int i;
+				for (i = 0; i 	< vsize; i ++)
+				{
 					tmp[i] = bdata[i];
-				for (int i = 0; i < vsize; i ++)
-					std::cout << bdata[i] << std::endl;
-				for (int i = 0; i < vsize; i ++)
 					_allocator.destroy(bdata + i);
-				_allocator.deallocate(bdata, vsize);	
-				std::cout << "afte deallocate \n";
-				for (int i = 0; i < vsize; i ++)
-					std::cout << bdata[i] << std::endl;
-				// for (int i = 0; i < vsize; i ++)	
-					// std::cout << tmp[i] << std::endl;
-							
+				}
+				_allocator.deallocate(bdata, vcap);
+				bdata = tmp;
+				vcap = ncap;
 			}
+			_allocator.construct(bdata + vsize, val);
+			vsize++;
 		}
 		
+		void pop_back ()
+		{
+			_allocator.destroy(edata);
+			vsize--;
+		}
+		
+		// void push_front (const value_type& val)
+		// {
+			// std::cout << *(bdata);
+		// 	if (vcap == vsize)
+		// 	{
+		// 		size_type ncap;
+		// 		if (!vcap)
+		// 			ncap = 1;
+		// 		else
+		// 			ncap = vcap * 2;
+		// 		pointer tmp = _allocator.allocate(ncap);
+		// 		int i = 0;
+		// 		_allocator.construct(tmp, val);
+		// 		_allocator.destroy(bdata);
+		// 		for (i = 1; i <= vsize; i ++)
+		// 		{
+		// 			_allocator.construct(tmp + i, bdata[i - 1]);
+		// 			_allocator.destroy(bdata + i);
+		// 		}
+		// 		_allocator.deallocate(bdata, vcap);
+		// 		bdata = tmp;
+		// 		vcap = ncap;
+		// 	}
+		// 	else
+		// 	{
+		// 		for(int i = vsize; i > 0; i--)
+		// 			*(bdata + i) = *(bdata + (i - 1));
+		// 		_allocator.construct(bdata, val);	
+		// 	}
+		// 	vsize++;
+		// }
+		void print()
+		{
+			for (int i = 0; i < vsize; i ++)	
+				std::cout << bdata[i] << std::endl;
+			std::cout << "capacity :  " << vcap << std::endl;
+		}
 		size_type capacity() {return vcap;}
 		private:
 			size_type		vsize;
 			size_type 		vcap;
 			allocator_type _allocator;
-			pointer  bdata;
-			pointer edata;
+			pointer	bdata;
+			pointer	edata;
 	};
 }
 
