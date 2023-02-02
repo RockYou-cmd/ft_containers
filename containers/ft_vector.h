@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/02/02 07:49:41 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/02/02 19:57:30 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ namespace ft
 			}
 			_allocator.construct(bdata + vsize, val);
 			vsize++;
+			edata = bdata + vsize;
 		}
 		
 		void pop_back ()
@@ -147,25 +148,37 @@ namespace ft
 				
 		}
 		
-	 	iterator insert()
+	 	iterator insert(iterator pos, const_reference value)
 		{
-			
+		
+    		iterator it(edata);
+    		while (it != pos)
+			{
+				// std::cout << "afte\n";
+				*it = *(it - 1);
+				it --;
+			}
+    		*it = value;
+			vsize++;
+			return it;
 		}
 		
 		size_type capacity()
 		{
 			return vcap;
 		}
-
-
-
-
-
-
-
-
-
 		
+		size_type size()
+		{
+			return vsize;
+		}
+
+
+
+
+
+
+
 		void print()
 		{
 			for (int i = 0; i < vsize; i ++)	
@@ -174,10 +187,10 @@ namespace ft
 			std::cout << "size :  " << vsize << std::endl;
 		}
 		private:
+			pointer			bdata;
 			size_type		vsize;
 			size_type 		vcap;
 			allocator_type _allocator;
-			pointer			bdata;
 			pointer			edata;
 	};
 }

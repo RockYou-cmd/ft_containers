@@ -17,7 +17,7 @@ namespace ft
 		{
 			it = vdata;
 		};
-		value_type operator*()
+		reference operator*()
 		{
 			return (*it);
 		}
@@ -34,10 +34,22 @@ namespace ft
 			return *it;
 		}
 
+		v_iterator operator+(int n)
+		{
+			// it += n;
+			return this->it + n;
+		}
+
 		value_type operator--(int)
 		{
 			it -= 1;
 			return *(it + 1);
+		}
+
+		v_iterator operator-(int n)
+		{
+			// it -= i;
+			return this->it - n;
 		}
 
 		value_type operator--()
@@ -46,14 +58,15 @@ namespace ft
 			return *it;
 		}
 
-		bool operator==(const pointer& other)
+		bool operator==(const v_iterator& other)
 		{
-			return *it == *(other->it);
+			return it == other.it;
 		}
 
-		bool operator!=(const pointer& other)
+		bool operator!=(const v_iterator& other)
 		{
-			return *it != *(other->it);
+
+			return (it != other.it);
 		}
 		private :
 			pointer it;
