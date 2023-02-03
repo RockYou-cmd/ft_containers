@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/02/02 19:57:30 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:19:40 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ namespace ft
 			typedef 			T 								value_type;
 			typedef 			std::allocator<T> 				allocator_type;
 			typedef 			std::size_t 					size_type;
-			typedef 			size_type 						difference_type;
+			typedef 			std::size_t 					difference_type;
 			typedef 			value_type& 					reference;
 			typedef 			const value_type& 				const_reference;
 			typedef typename 	allocator_type::pointer 		pointer;
@@ -73,7 +73,7 @@ namespace ft
 		// end()
 		iterator end()
 		{
-			return iterator(end);
+			return iterator(bdata + vsize);
 		}
 		// push_back	
 		void push_back (const value_type& val)
@@ -87,11 +87,12 @@ namespace ft
 					ncap = vcap * 2;
 				pointer tmp = _allocator.allocate(ncap);
 				int i;
-				for (i = 0; i 	< vsize; i ++)
+				for (i = 0; i < vsize; i ++)
 				{
-					tmp[i] = bdata[i];
+					_allocator.construct(tmp + i, *(bdata + i));
 					_allocator.destroy(bdata + i);
 				}
+				if (vcap > 0)
 				_allocator.deallocate(bdata, vcap);
 				bdata = tmp;
 				vcap = ncap;
@@ -109,7 +110,7 @@ namespace ft
 
 		void resize(size_type n, value_type val = value_type())
 		{
-			if (n < 0) /// prob here n == cap
+			if (n < 0)
 				return;
 			if (n > vcap)
 			{
@@ -148,20 +149,59 @@ namespace ft
 				
 		}
 		
-	 	iterator insert(iterator pos, const_reference value)
+		void reserve(size_type ncap)
 		{
-		
-    		iterator it(edata);
-    		while (it != pos)
+			if (ncap <= vcap)
+				return;
+			pointer ndata = _allocator.allocate(ncap);
+			for (size_type i = 0; i < vsize; ++i)
 			{
-				// std::cout << "afte\n";
+				_allocator.construct(ndata + i, *(bdata + i));
+				_allocator.destroy(bdata + i);
+			}
+			_allocator.deallocate(bdata, vcap);
+			bdata = ndata;
+			vcap = ncap;
+    	}
+
+	 	iterator insert (iterator position, const value_type& val)
+		{
+			std::cout << "here\n";
+			distance = position.DistanceToEnd(bdata + vsize);
+			std::cout << "here1\n";
+			if (distance > vcap)
+				exit(0);
+			if (vcap == vsize)
+				reserve(vcap * 2);
+    		iterator it(bdata + vsize);
+    		for (int i = 0; i < distance; i ++)
+			{
+				// std::cout << "while : " << *it << " |   pos : " << *pos << "\n";
 				*it = *(it - 1);
 				it --;
 			}
-    		*it = value;
+    		*it = val;
 			vsize++;
 			return it;
 		}
+		
+	 	// void insert (iterator position, size_type n, const value_type& val)
+		// {
+		// 	distance = position.DistanceToEnd(bdata + vsize);
+		// 	if (distance > vcap)
+		// 		exit(0);
+		// 	if (vcap == vsize)
+		// 		reserve(vcap * 2);
+    	// 	iterator it(bdata + vsize);
+    	// 	for (int i = 0; i < distance; i ++)
+		// 	{
+		// 		*it = *(it - 1);
+		// 		it --;
+		// 	}
+    	// 	*it = val;
+		// 	vsize++;
+		// 	return it;
+		// }
 		
 		size_type capacity()
 		{
@@ -192,6 +232,7 @@ namespace ft
 			size_type 		vcap;
 			allocator_type _allocator;
 			pointer			edata;
+			difference_type distance;
 	};
 }
 

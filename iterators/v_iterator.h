@@ -46,10 +46,28 @@ namespace ft
 			return *(it + 1);
 		}
 
-		v_iterator operator-(int n)
+		pointer operator-(int n)
 		{
 			// it -= i;
 			return this->it - n;
+		}
+
+		size_t DistanceToEnd(v_iterator other)
+		{
+			// pointer *ptr = &it;
+			// pointer *ptr1 = &(other.it);
+			if (it > other.it)
+			{
+				std::cout << "error\n";
+				exit(0);
+			}
+			int i = 0;
+			while(it != other.it)
+			{
+				it ++;
+				i ++;
+			}
+			return i;
 		}
 
 		value_type operator--()
@@ -67,6 +85,11 @@ namespace ft
 		{
 
 			return (it != other.it);
+		}
+
+		void addr()
+		{
+			std::cout << "it adrr : " << it << std::endl;
 		}
 		private :
 			pointer it;
