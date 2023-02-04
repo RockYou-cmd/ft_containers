@@ -54,8 +54,6 @@ namespace ft
 
 		size_t DistanceToEnd(v_iterator other)
 		{
-			// pointer *ptr = &it;
-			// pointer *ptr1 = &(other.it);
 			if (it > other.it)
 			{
 				std::cout << "error\n";
@@ -65,6 +63,22 @@ namespace ft
 			while(it != other.it)
 			{
 				it ++;
+				i ++;
+			}
+			return i;
+		}
+
+		size_t DistanceToBeg(v_iterator other)
+		{
+			if (it < other.it)
+			{
+				std::cout << "error\n";
+				exit(0);
+			}
+			int i = 0;
+			while(it != other.it)
+			{
+				other.it ++;
 				i ++;
 			}
 			return i;

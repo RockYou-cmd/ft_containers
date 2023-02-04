@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/02/03 20:19:40 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:17:00 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,17 +166,12 @@ namespace ft
 
 	 	iterator insert (iterator position, const value_type& val)
 		{
-			std::cout << "here\n";
-			distance = position.DistanceToEnd(bdata + vsize);
-			std::cout << "here1\n";
-			if (distance > vcap)
-				exit(0);
+			int distance = position.DistanceToEnd(bdata + vsize);
 			if (vcap == vsize)
 				reserve(vcap * 2);
     		iterator it(bdata + vsize);
     		for (int i = 0; i < distance; i ++)
 			{
-				// std::cout << "while : " << *it << " |   pos : " << *pos << "\n";
 				*it = *(it - 1);
 				it --;
 			}
@@ -185,23 +180,28 @@ namespace ft
 			return it;
 		}
 		
-	 	// void insert (iterator position, size_type n, const value_type& val)
-		// {
-		// 	distance = position.DistanceToEnd(bdata + vsize);
-		// 	if (distance > vcap)
-		// 		exit(0);
-		// 	if (vcap == vsize)
-		// 		reserve(vcap * 2);
-    	// 	iterator it(bdata + vsize);
-    	// 	for (int i = 0; i < distance; i ++)
-		// 	{
-		// 		*it = *(it - 1);
-		// 		it --;
-		// 	}
-    	// 	*it = val;
-		// 	vsize++;
-		// 	return it;
-		// }
+	 	void insert (iterator position, size_type n, const value_type& val)
+		{
+			int enddist = position.DistanceToEnd(bdata + vsize);
+			if ((vcap - vsize) < n)
+				reserve(vcap + n);
+			iterator final_end = ((end() + n) - 1);
+			iterator current_end = (end() - 1);
+			int fnldist = enddist + n;
+			for (int i = 0; i < fnldist; i ++)
+			{
+				if (i < enddist)
+				{
+					*final_end = *current_end;
+					current_end --;
+					
+				}
+				else
+					*final_end = val;
+				final_end --;
+			}
+			vsize += n;
+		}
 		
 		size_type capacity()
 		{
@@ -232,7 +232,6 @@ namespace ft
 			size_type 		vcap;
 			allocator_type _allocator;
 			pointer			edata;
-			difference_type distance;
 	};
 }
 
