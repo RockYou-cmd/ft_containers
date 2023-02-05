@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/02/05 15:52:46 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:14:48 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,15 @@ namespace ft
 		template <class InputIterator>
     	void insert (iterator position, InputIterator first, InputIterator last)
 		{
-			int n = std::distance(first, last);
+			int n = 0;
+			InputIterator tmpf = first;
+			InputIterator tmpl = last;
+			while(tmpf != tmpl)
+			{
+				tmpl--;
+				n ++;
+			}
+			std::cout << "n : " << n << "\n";
 			int enddist = position.DistanceToEnd(bdata + vsize);
 			if ((vcap - vsize) < n)
 				reserve(vcap + n);
@@ -222,8 +230,8 @@ namespace ft
 				}
 				else
 				{
+					last --;
 					*final_end = *last;
-					last--;
 				}
 				final_end --;
 				//
