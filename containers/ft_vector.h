@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/02/05 15:37:16 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:52:46 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,6 @@ namespace ft
 				{
 					*final_end = *current_end;
 					current_end --;
-					//
 				}
 				else
 				{
@@ -227,6 +226,7 @@ namespace ft
 					last--;
 				}
 				final_end --;
+				//
 			}
 			vsize += n;
 		}
