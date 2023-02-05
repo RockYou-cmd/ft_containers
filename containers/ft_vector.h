@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/02/04 19:17:00 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:37:16 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define VECTOR_HPP
 #include "ft_containers.h"
 #include "../iterators/v_iterator.h"
-
+#include <iterator>     // std::distance
 namespace ft
 {
 	template < class T, class Alloc = std::allocator<T> >
@@ -203,6 +203,34 @@ namespace ft
 			vsize += n;
 		}
 		
+		template <class InputIterator>
+    	void insert (iterator position, InputIterator first, InputIterator last)
+		{
+			int n = std::distance(first, last);
+			int enddist = position.DistanceToEnd(bdata + vsize);
+			if ((vcap - vsize) < n)
+				reserve(vcap + n);
+			iterator final_end = ((end() + n) - 1);
+			iterator current_end = (end() - 1);
+			int fnldist = enddist + n;
+			for (int i = 0; i < fnldist; i ++)
+			{
+				if (i < enddist)
+				{
+					*final_end = *current_end;
+					current_end --;
+					//
+				}
+				else
+				{
+					*final_end = *last;
+					last--;
+				}
+				final_end --;
+			}
+			vsize += n;
+		}
+
 		size_type capacity()
 		{
 			return vcap;
