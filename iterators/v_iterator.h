@@ -5,6 +5,39 @@
 namespace ft
 {
 	template <typename T>
+	class reverse_iterator
+	{
+	
+	public:
+	    reverse_iterator(T* p) : pointer(p) {
+
+		}
+		public:
+		typedef T 								value_type;
+		typedef ptrdiff_t 						difference_type;
+		typedef T* 								pointer;
+		typedef T& 								reference;
+		typedef std::random_access_iterator_tag iterator_category;
+
+	    value_type& operator*()
+	    { 
+	        return *it;
+	    }
+	    reverse_iterator& operator++()
+	    {
+	        --it;
+	        return *this;
+	    }
+
+
+	    bool operator!=(const reverse_iterator& other) const
+	    {
+	        return it != other.it;
+	    }
+		private:
+			pointer it;
+	};
+	template <typename T>
 	class v_iterator
 	{
 		public:
@@ -17,39 +50,54 @@ namespace ft
 		{
 			it = vdata;
 		};
+
+		v_iterator operator=(v_iterator other)
+		{
+			it = other.it;
+			return (*this);
+		}
+
 		reference operator*()
 		{
 			return (*it);
 		}
 		
-		value_type operator++(int)
+		v_iterator operator++(int)
 		{
-			it += 1;
-			return *(it - 1);
+			v_iterator tmp(it);
+			it ++;
+			return tmp;
 		}
 
-		value_type operator++()
+		v_iterator operator++()
 		{
-			it += 1;
-			return *it;
+			it ++;
+			return *this;
 		}
 
 		v_iterator operator+(int n)
 		{
-			// it += n;
-			return this->it + n;
+			it += n;
+			return *this;
 		}
 
-		value_type operator--(int)
+		v_iterator operator-(int n)
 		{
-			it -= 1;
-			return *(it + 1);
+			it -= n;
+			return *this;
 		}
 
-		pointer operator-(int n)
+		v_iterator operator--(int)
 		{
-			// it -= i;
-			return this->it - n;
+			v_iterator tmp(it);
+			it --;
+			return tmp;
+		}
+
+		v_iterator operator--()
+		{
+			it --;
+			return *this;
 		}
 
 		size_t DistanceToEnd(v_iterator other)
@@ -84,11 +132,6 @@ namespace ft
 			return i;
 		}
 
-		value_type operator--()
-		{
-			it -= 1;
-			return *it;
-		}
 
 		bool operator==(const v_iterator& other)
 		{
