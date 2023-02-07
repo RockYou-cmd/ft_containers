@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/02/05 21:45:08 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:17:19 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 namespace ft
 {
 	template < class T, class Alloc = std::allocator<T> >
-	class Vector
+	class vector
 	{
 		public:
 			typedef 			T 								value_type;
@@ -31,12 +31,13 @@ namespace ft
 			typedef typename 	allocator_type::const_pointer 	const_pointer;
 			typedef 			ft::v_iterator<T> 				iterator;
 			typedef 			ft::v_iterator<const T> 		const_iterator;
+			typedef 			ft::reverse_iterator<T> 		reverse_iterator;
 
 		// default constructor
-		Vector(): vcap(0) , vsize(0) {};
+		vector(): vcap(0) , vsize(0) {};
 
 		// Fill constructor
-		Vector(size_type nb, const value_type& val = value_type()) : vsize(nb) , vcap(nb) 
+		vector(size_type nb, const value_type& val = value_type()) : vsize(nb) , vcap(nb) 
 		{	
 			std::cout << "constructed " << nb << "\n";
 			bdata = _allocator.allocate(10);
@@ -45,7 +46,8 @@ namespace ft
 			edata = bdata + nb;
 			
 		}
-		Vector& operator=(const Vector& other)
+
+		vector& operator=(const vector& other)
 		{
 			// std::cout << "here----------\n";
 			if (this != &other && other.vcap > 0)
@@ -75,6 +77,32 @@ namespace ft
 		{
 			return iterator(bdata + vsize);
 		}
+		
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(bdata + (vsize - 1));
+		}
+	
+		reverse_iterator rend()
+		{
+			return reverse_iterator(bdata);
+		}
+
+		size_type size()
+		{
+			return vsize;
+		}
+		
+		size_type max_size()
+		{
+			return (_allocator.max_size());
+		}
+		
+		bool empty()
+		{
+			return (vsize : 1 ? 0);
+		}
+		
 		// push_back	
 		void push_back (const value_type& val)
 		{
@@ -244,10 +272,6 @@ namespace ft
 			return vcap;
 		}
 		
-		size_type size()
-		{
-			return vsize;
-		}
 
 
 

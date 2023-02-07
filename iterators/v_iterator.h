@@ -7,44 +7,93 @@ namespace ft
 	template <typename T>
 	class reverse_iterator
 	{
-	
-	public:
-	    reverse_iterator(T* p) : pointer(p) {
 
-		}
-		public:
-		typedef T 								value_type;
-		typedef ptrdiff_t 						difference_type;
-		typedef T* 								pointer;
-		typedef T& 								reference;
+	public:
+	public:
+		typedef T value_type;
+		typedef ptrdiff_t difference_type;
+		typedef T *pointer;
+		typedef T &reference;
 		typedef std::random_access_iterator_tag iterator_category;
 
-	    value_type& operator*()
-	    { 
-	        return *it;
-	    }
-	    reverse_iterator& operator++()
-	    {
-	        --it;
-	        return *this;
-	    }
+		reverse_iterator(pointer vdata)
+		{
+			it = vdata;
+		};
 
+		reference operator*()
+		{
+			return *it;
+		}
 
-	    bool operator!=(const reverse_iterator& other) const
-	    {
-	        return it != other.it;
-	    }
-		private:
-			pointer it;
+		reverse_iterator operator+(int n)
+		{
+			it -= n;
+			return *this;
+		}
+
+		reverse_iterator operator-(int n)
+		{
+			it += n;
+			return *this;
+		}
+
+		reverse_iterator operator++()
+		{
+			--it;
+			return *this;
+		}
+
+		reverse_iterator operator++(int)
+		{
+			reverse_iterator tmp(it);
+			it--;
+			return tmp;
+		}
+
+		reverse_iterator operator--()
+		{
+			++it;
+			return *this;
+		}
+
+		reverse_iterator operator--(int)
+		{
+			reverse_iterator tmp(it);
+			it++;
+			return tmp;
+		}
+
+		reverse_iterator operator=(reverse_iterator other)
+		{
+			it = other.it;
+			return (*this);
+		}
+
+		bool operator!=(const reverse_iterator &other)
+		{
+			return it != other.it;
+		}
+
+		bool operator==(const reverse_iterator &other)
+		{
+			return it == other.it;
+		}
+
+	private:
+		pointer it;
 	};
+
+	//=================================================================
+
 	template <typename T>
 	class v_iterator
 	{
-		public:
-		typedef T 								value_type;
-		typedef ptrdiff_t 						difference_type;
-		typedef T* 								pointer;
-		typedef T& 								reference;
+	public:
+		typedef T value_type;
+		typedef ptrdiff_t difference_type;
+		typedef T *pointer;
+		typedef T &reference;
 		typedef std::random_access_iterator_tag iterator_category;
 		v_iterator(pointer vdata)
 		{
@@ -61,17 +110,17 @@ namespace ft
 		{
 			return (*it);
 		}
-		
+
 		v_iterator operator++(int)
 		{
 			v_iterator tmp(it);
-			it ++;
+			it++;
 			return tmp;
 		}
 
 		v_iterator operator++()
 		{
-			it ++;
+			it++;
 			return *this;
 		}
 
@@ -90,13 +139,13 @@ namespace ft
 		v_iterator operator--(int)
 		{
 			v_iterator tmp(it);
-			it --;
+			it--;
 			return tmp;
 		}
 
 		v_iterator operator--()
 		{
-			it --;
+			it--;
 			return *this;
 		}
 
@@ -108,10 +157,10 @@ namespace ft
 				exit(0);
 			}
 			int i = 0;
-			while(it != other.it)
+			while (it != other.it)
 			{
-				it ++;
-				i ++;
+				it++;
+				i++;
 			}
 			return i;
 		}
@@ -124,21 +173,20 @@ namespace ft
 				exit(0);
 			}
 			int i = 0;
-			while(it != other.it)
+			while (it != other.it)
 			{
-				other.it ++;
-				i ++;
+				other.it++;
+				i++;
 			}
 			return i;
 		}
 
-
-		bool operator==(const v_iterator& other)
+		bool operator==(const v_iterator &other)
 		{
 			return it == other.it;
 		}
 
-		bool operator!=(const v_iterator& other)
+		bool operator!=(const v_iterator &other)
 		{
 
 			return (it != other.it);
@@ -148,10 +196,10 @@ namespace ft
 		{
 			std::cout << "it adrr : " << it << std::endl;
 		}
-		private :
-			pointer it;
+
+	private:
+		pointer it;
 	};
 }
 
-
-#endif //V_ITERATOR
+#endif // V_ITERATOR
