@@ -124,16 +124,18 @@ namespace ft
 			return *this;
 		}
 
-		v_iterator operator+(int n)
+		v_iterator operator+(int n) const
 		{
-			it += n;
-			return *this;
+			v_iterator tmp(*this);
+			tmp.it += n;
+			return tmp;
 		}
 
 		v_iterator operator-(int n)
 		{
-			it -= n;
-			return *this;
+			v_iterator tmp(*this);
+			tmp.it -= n;
+			return tmp;
 		}
 
 		v_iterator operator--(int)

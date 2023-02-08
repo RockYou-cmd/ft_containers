@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/02/07 19:17:19 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/02/08 20:11:30 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,33 @@ namespace ft
 		
 		bool empty()
 		{
-			return (vsize : 1 ? 0);
+			std::cout << "VSIZE : " << vsize << std::endl;
+			return (vsize ? 0 : 1);
 		}
 		
+		reference at(size_type n)
+		{
+			if (n < vcap && n >= 0)
+				return bdata[n];
+			std::cout << "error\n";
+			exit(0);
+		}
+
+		reference operator[](size_type n)
+		{
+			return at(n);
+		}
+
+		reference front()
+		{
+			return at(0);
+		}
+		
+		reference back()
+		{
+			return vsize ? bdata[vsize - 1] : bdata[0];
+		}
+
 		// push_back	
 		void push_back (const value_type& val)
 		{
@@ -242,7 +266,6 @@ namespace ft
 				tmpl--;
 				n ++;
 			}
-			std::cout << "n : " << n << "\n";
 			int enddist = position.DistanceToEnd(bdata + vsize);
 			if ((vcap - vsize) < n)
 				reserve(vcap + n);
@@ -265,6 +288,48 @@ namespace ft
 				//
 			}
 			vsize += n;
+		}
+
+		void clear()
+		{
+			for (int i = 0; i < vsize; i ++)
+				_allocator.destroy(bdata + i);
+			vsize = 0;
+		}
+		
+		void assign (const size_type n, value_type val)
+		{
+			if (n > vcap)
+				reserve(n);
+			clear();
+			for (int i = 0; i < n; i++)
+				_allocator.construct(bdata + i, val);
+			vsize = n;
+		}
+
+		template <class InputIterator>
+  		void assign (InputIterator first, InputIterator last)
+		{
+			int n = 0;
+			std::cout << "heere\n";
+			InputIterator tmpf = first;
+			InputIterator tmpl = last;
+			while(tmpf != tmpl)
+			{
+				tmpl--;
+				n ++;
+			}
+			if (n > vcap)
+				reserve(n);
+			clear();
+			for (int i = 0; i < n; i++)
+				_allocator.construct(bdata + i, *(first + i));
+			vsize = n;
+		}
+		
+		void swap (vector& x)
+		{
+			assign(x.begin(), x.end() - 1);
 		}
 
 		size_type capacity()
