@@ -6,6 +6,24 @@
 #include <iterator>
 #include <iostream>
 
+template <typename T, typename = void>
+struct is_iterator
+{
+    static const bool value = false;
+};
+
+template <typename T>
+struct is_iterator<T*>
+{
+    static const bool value = true;
+};
+
+template <typename Iterator>
+struct is_iterator<Iterator, typename Iterator::iterator_category>
+{
+    static const bool value = true;
+};
+
 template <typename Iterator>
 struct iterator_traits
 {
@@ -24,6 +42,14 @@ struct iterator_traits<T*>
     typedef ptrdiff_t difference_type;
     typedef T* pointer;
     typedef T& reference;
+};
+
+template<bool B, typename T = void>
+struct enable_if {};
+
+template<typename T>
+struct enable_if<true, T> {
+    typedef T type;
 };
 
 
