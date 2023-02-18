@@ -6,27 +6,14 @@
 #include <iterator>
 #include <iostream>
 
-template <typename T, typename = void>
-struct is_iterator
-{
-    static const bool value = false;
-};
-
-template <typename T>
-struct is_iterator<T*>
-{
-    static const bool value = true;
-};
 
 template <typename Iterator>
-struct is_iterator<Iterator, typename Iterator::iterator_category>
+class iterator_traits
 {
-    static const bool value = true;
-};
-
-template <typename Iterator>
-struct iterator_traits
-{
+    iterator_traits()
+    {
+        std::cout << "hhh\n";
+    }
     typedef typename Iterator::reference reference;
     typedef typename Iterator::pointer pointer;
     typedef typename Iterator::difference_type difference_type;
@@ -35,7 +22,7 @@ struct iterator_traits
 };
 
 template <typename T>
-struct iterator_traits<T*>
+class iterator_traits<T*>
 {
     typedef std::random_access_iterator_tag iterator_category;
     typedef T value_type;
@@ -52,6 +39,46 @@ struct enable_if<true, T> {
     typedef T type;
 };
 
+
+template <typename T>
+struct is_integral {
+  static const bool value = false;
+};
+
+template <>
+struct is_integral<short> {
+  static const bool value = true;
+};
+
+template <>
+struct is_integral<unsigned short> {
+  static const bool value = true;
+};
+
+template <>
+struct is_integral<int> {
+  static const bool value = true;
+};
+
+template <>
+struct is_integral<unsigned int> {
+  static const bool value = true;
+};
+
+template <>
+struct is_integral<long> {
+  static const bool value = true;
+};
+
+template <>
+struct is_integral<unsigned long> {
+  static const bool value = true;
+};
+
+template <>
+struct is_integral<char> {
+  static const bool value = true;
+};
 
 
 #endif //ITERATORS

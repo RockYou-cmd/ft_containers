@@ -6,7 +6,7 @@
 /*   By: ael-korc <ael-korc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 15:57:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2023/02/10 05:40:02 by ael-korc         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:00:34 by ael-korc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,8 @@ namespace ft
 			vsize = 0;
 		}
 		
+
+		
 		void assign (const size_type n, value_type val)
 		{
 			if (n > vcap)
@@ -306,13 +308,12 @@ namespace ft
 				_allocator.construct(bdata + i, val);
 			vsize = n;
 		}
-
-		template <class InputIterator >
-		typename enable_if<is_iterator<InputIterator>::value , InputIterator>::type
-  		assign (InputIterator first, InputIterator last)
+		
+		template <class InputIterator>
+  		void assign (InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type = 0)
 		{
 			int n = 0;
-			std::cout << "heere\n";
+			typename InputIterator::value_type a;
 			InputIterator tmpf = first;
 			InputIterator tmpl = last;
 			while(tmpf != tmpl)
